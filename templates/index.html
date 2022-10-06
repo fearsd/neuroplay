@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% block title %}This is an example page{% endblock %}
+
+{% block content %}
+  <!-- Ввод кода доступа -->
+  <input class="form-control" type="text" placeholder="Ваш персональный код">
+  <button type="button" id="code-btn" class="btn btn-primary">
+    <i class="icon-btn" id="code-icon"></i>
+  </button>
+
+  <!-- Кнопки для взаимодействия с текстом -->
+  <button type="button" id="save-btn" class="btn btn-primary">
+    <i class="icon-btn" id="save-icon"></i>
+    Сохранить
+  </button>
+  <button type="button" id="download-btn" class="btn btn-primary">
+    <i class="icon-btn" id="download-icon"></i>
+    Загрузить
+  </button>
+  <button type="button" id="restore-btn" class="btn btn-primary">
+    <i class="icon-btn" id="restore-icon"></i>
+    Восстановить
+  </button>
+
+  <!-- Само поле ввода для текста -->
+  <textarea class="form-control" id="neuroplay-text" rows="20" placeholder="Писать текст здесь"></textarea>
+
+  <!-- Блок для продолжения реплики -->
+  <h2>Продолжить реплику</h2>
+  <input class="form-control" type="text" placeholder="Входной текст">
+  <textarea class="form-control" id="continue-text" rows="20" placeholder="Выходной текст"></textarea>
+  <button type="button" class="btn btn-primary btn-run">
+    <i class="icon-btn run-icon"></i>
+    Запустить
+  </button>
+  <button type="button" id="clear-btn" class="btn btn-primary btn-clear">
+    <i class="icon-btn clear-icon"></i>
+    Очистить
+  </button>
+
+  <!-- Блок для ответа на реплику -->
+  <h2>Сгенерировать ответ на реплику</h2>
+  <input class="form-control" type="text" placeholder="Входной текст">
+  <textarea class="form-control" id="response-text" rows="20" placeholder="Выходной текст"></textarea>
+  <button type="button" class="btn btn-primary btn-run">
+    <i class="icon-btn run-icon"></i>
+    Запустить
+  </button>
+  <button type="button" id="clear-btn" class="btn btn-primary btn-clear">
+    <i class="icon-btn clear-icon"></i>
+    Очистить
+  </button>
+
+{% endblock %}

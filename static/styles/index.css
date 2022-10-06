@@ -1,0 +1,45 @@
+.icon-btn {
+    display: inline-block;
+    height: 28px;
+    width: 28px;
+}
+
+#code-icon {
+    background-image : url(../icon_arrow.svg);
+    height: 24px;
+    width: 24px;
+}
+
+#save-icon {
+    background-image : url(../icon_save.svg);
+}
+
+#download-icon {
+    background-image : url(../icon_download.svg);
+}
+
+#restore-icon {
+    background-image : url(../icon_restore.svg);
+}
+
+.run-icon {
+    height: 18px;
+    width: 18px;
+    background-image : url(../icon_run.svg);
+}
+
+.clear-icon {
+    height: 18px;
+    width: 18px;
+    background-image : url(../icon_clear.svg);
+}
+
+#code-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 46px;
+    width: 46px;
+    padding: 0;
+    border-radius: 10px;
+}
