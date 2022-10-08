@@ -3,21 +3,21 @@
 
 {% block content %}
   <!-- Ввод кода доступа -->
-  <input class="form-control" type="text" placeholder="Ваш персональный код">
+  <input class="form-control" type="text" placeholder="Ваш персональный код" id="code-input">
   <button type="button" id="code-btn" class="btn btn-primary">
     <i class="icon-btn" id="code-icon"></i>
   </button>
 
   <!-- Кнопки для взаимодействия с текстом -->
-  <button type="button" id="save-btn" class="btn btn-primary">
+  <button type="button" id="save-btn" class="btn btn-primary btn-text" disabled>
     <i class="icon-btn" id="save-icon"></i>
     Сохранить
   </button>
-  <button type="button" id="download-btn" class="btn btn-primary">
+  <button type="button" id="download-btn" class="btn btn-primary btn-text" disabled>
     <i class="icon-btn" id="download-icon"></i>
     Загрузить
   </button>
-  <button type="button" id="restore-btn" class="btn btn-primary">
+  <button type="button" id="restore-btn" class="btn btn-primary btn-text" disabled>
     <i class="icon-btn" id="restore-icon"></i>
     Восстановить
   </button>
@@ -51,4 +51,37 @@
     Очистить
   </button>
 
+{% endblock %}
+
+{% block scripts %}
+  {{ super() }}
+  <script>
+    const login = (code) => {
+      $.ajax({
+        url: '/login', 
+        type: 'POST',
+        dataType: 'json',
+        contentType: 'application/json',
+        data: JSON.stringify({code: code}),
+        success: function (result) {
+          if (result.success) {
+            $('.btn-text').prop('disabled', false)
+          }
+          else {
+            console.log('NE SUETA NE KRUTO')
+          }
+        }
+      });
+    }
+    
+    $(function() {
+      $('#code-btn').click(function(e) {
+        const code = $('#code-input').val();
+        login(code);
+      });
+      $('#save-btn').click(function(e) {
+        console.log('poshel naxuy')
+      });
+    });
+  </script>
 {% endblock %}
