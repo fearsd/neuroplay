@@ -24,6 +24,9 @@
             {{ bootstrap.load_js() }}
             <script src="{{ url_for('static', filename='tinymce/js/tinymce/tinymce.min.js') }}"></script>
             <script src="https://cdn.tiny.cloud/1/ik1xe7soyc0oztmmo928gifdx0sq98ve8ds8p8f07rhlgab2/tinymce/6/plugins.min.js" referrerpolicy="origin"></script>
+            <script src="{{url_for('static', filename='purify.min.js')}}"></script>
+            <script src="{{url_for('static', filename='html2canvas.min.js')}}"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" integrity="sha512-qZvrmS2ekKPF2mSznTQsxqPgnpkI4DNTlrdUmTzrDgektczlKNRRhy5X5AAOnx5S09ydFYWWNSfcEqDTTHgtNA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
         {% endblock %}
         <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/normalize.css') }}">
         <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/index.css') }}">
