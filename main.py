@@ -52,14 +52,15 @@ def scenario():
 @app.route('/continue', methods=['POST'])
 def replic_continue():
     response = request.get_json()
+    print(response)
     if response['replic']:
-        return jsonify({'replic': 'working post continue'})
+        return jsonify({'replic': response['replic']})
 
 @app.route('/response', methods=['POST'])
 def replic_response():
     response = request.get_json()
     if response['replic']:
-        return jsonify({'replic': 'working post response'})
+        return jsonify({'replic': response['replic']})
 
 if __name__ == '__main__':
     app.run(host='127.0.0.1', port=5555, debug=True)

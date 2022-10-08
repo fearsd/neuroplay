@@ -2,61 +2,102 @@
 {% block title %}This is an example page{% endblock %}
 
 {% block content %}
-  <!-- Ввод кода доступа -->
-  <input class="form-control" type="text" placeholder="Ваш персональный код" id="code-input">
-  <button type="button" id="code-btn" class="btn btn-primary">
-    <i class="icon-btn" id="code-icon"></i>
-  </button>
+  <div class="main_container">
 
-  <!-- Кнопки для взаимодействия с текстом -->
-  <button type="button" id="save-btn" class="btn btn-primary btn-text" disabled>
-    <i class="icon-btn" id="save-icon"></i>
-    Сохранить
-  </button>
-  <button type="button" id="download-btn" class="btn btn-primary btn-text" disabled>
-    <i class="icon-btn" id="download-icon"></i>
-    Загрузить
-  </button>
-  <button type="button" id="restore-btn" class="btn btn-primary btn-text" disabled>
-    <i class="icon-btn" id="restore-icon"></i>
-    Восстановить
-  </button>
+    <div class="left_block">
 
-  <!-- Само поле ввода для текста -->
-  <textarea class="form-control" id="neuroplay-text" rows="20" placeholder="Писать текст здесь"></textarea>
+      <div class="code_container">
+        <input class="form-control" type="text" placeholder="Ваш персональный код" id="code-input">
+        <button type="button" id="code-btn" class="btn btn-primary">
+          <i class="icon-btn" id="code-icon"></i>
+        </button>
+      </div>
+        <!-- Ввод кода доступа -->
+      
+    
+      <!-- Кнопки для взаимодействия с текстом -->
+      <div class="btn_container">
+        <button type="button" id="save-btn" class="btn btn-primary btn-text" disabled>
+          <i class="icon-btn" id="save-icon"></i>
+          Сохранить
+        </button>
+        <button type="button" id="download-btn" class="btn btn-primary btn-text" disabled>
+          <i class="icon-btn" id="download-icon"></i>
+          Загрузить
+        </button>
+        <button type="button" id="restore-btn" class="btn btn-primary btn-text" disabled>
+          <i class="icon-btn" id="restore-icon"></i>
+          Восстановить
+        </button>
+
+        <button type="button" id="theme-btn" class="btn btn-primary btn-text theme-btn">
+          <i class="icon-btn" id="theme-icon"></i>
+          Тема
+        </button>
+      
+      </div>
+      
+      <!-- Само поле ввода для текста -->
+      <textarea class="form-control" id="neuroplay-text" rows="20" placeholder="Писать текст здесь"></textarea>
+    
+    </div>
+
+    <div class="right_block">
 
   <!-- Блок для продолжения реплики -->
-  <h2>Продолжить реплику</h2>
-  <input class="form-control" type="text" placeholder="Входной текст">
-  <textarea class="form-control" id="continue-text" rows="20" placeholder="Выходной текст"></textarea>
-  <button type="button" class="btn btn-primary btn-run">
-    <i class="icon-btn run-icon"></i>
-    Запустить
-  </button>
-  <button type="button" id="clear-btn" class="btn btn-primary btn-clear">
-    <i class="icon-btn clear-icon"></i>
-    Очистить
-  </button>
+  <div class="input_container">
+    <h2>Продолжить реплику</h2>
+    <input class="form-control" type="text" placeholder="Входной текст" id="continue-text-input">
+    <textarea class="form-control" id="continue-text" rows="20" placeholder="Выходной текст"></textarea>
+    <div class="btn_container">
+      <button type="button" id="run-btn-continue" class="btn btn-primary btn-run">
+        <i class="icon-btn run-icon"></i>
+        Запустить
+      </button>
+      <button type="button" id="clear-btn-continue" class="btn btn-primary btn-clear">
+        <i class="icon-btn clear-icon"></i>
+        Очистить
+      </button>
+    </div>
+    
+  </div>
 
   <!-- Блок для ответа на реплику -->
-  <h2>Сгенерировать ответ на реплику</h2>
-  <input class="form-control" type="text" placeholder="Входной текст">
-  <textarea class="form-control" id="response-text" rows="20" placeholder="Выходной текст"></textarea>
-  <button type="button" class="btn btn-primary btn-run">
-    <i class="icon-btn run-icon"></i>
-    Запустить
-  </button>
-  <button type="button" id="clear-btn" class="btn btn-primary btn-clear">
-    <i class="icon-btn clear-icon"></i>
-    Очистить
-  </button>
+  <div class="input_container">
+    <h2>Сгенерировать ответ на реплику</h2>
+    <input class="form-control" type="text" placeholder="Входной текст" id="response-text-input">
+    <textarea class="form-control" id="response-text" rows="20" placeholder="Выходной текст"></textarea>
+    <div class="btn_container">
 
+    <button type="button" id="run-btn-response" class="btn btn-primary btn-run">
+      <i class="icon-btn run-icon"></i>
+      Запустить
+    </button>
+    <button type="button" id="clear-btn-response" class="btn btn-primary btn-clear">
+      <i class="icon-btn clear-icon"></i>
+      Очистить
+    </button>
+    </div>
+  </div>
+
+  </div>
+</div>
 {% endblock %}
 
 {% block scripts %}
   {{ super() }}
   <script>
-    const login = (code) => {
+     document.querySelector('.theme-btn').addEventListener('click', function() {
+       document.querySelectorAll('body').forEach(l => l.classList.toggle('page-black'));
+       document.querySelectorAll('textarea').forEach(l => l.classList.toggle('field-black'));
+       document.querySelectorAll('input').forEach(l => l.classList.toggle('field-black'));
+       document.querySelectorAll('h2').forEach(l => l.classList.toggle('page-black'));
+     });
+     tinymce.init({
+      selector: 'textarea#neuroplay-text',
+      toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | addcomment showcomments | spellcheckdialog a11ycheck | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
+    });
+     const login = code => {
       $.ajax({
         url: '/login', 
         type: 'POST',
@@ -73,6 +114,59 @@
         }
       });
     }
+
+    const saveScenario = scenario => {
+      tinymce.triggerSave(); 
+      $.ajax({
+        url: '/scenario', 
+        type: 'POST',
+        dataType: 'json',
+        contentType: 'application/json',
+        data: JSON.stringify({scenario: scenario}),
+        success: function (result) {
+          console.log('huy', result)
+        }
+      });
+    }
+
+    const restoreScenario = () => {
+      tinymce.triggerSave(); 
+      $.ajax({
+        url: '/scenario', 
+        type: 'GET',
+        dataType: 'json',
+        contentType: 'application/json',
+        success: function (result) {
+          tinymce.activeEditor.setContent(result.scenario);
+        }
+      });
+    }
+
+    const runContinue = replic => {
+      $.ajax({
+        url: '/continue', 
+        type: 'POST',
+        dataType: 'json',
+        contentType: 'application/json',
+        data: JSON.stringify({replic: replic}),
+        success: function (result) {
+          $('#continue-text').val(result.replic);
+        }
+      });
+    }
+
+    const runResponse = replic => {
+      $.ajax({
+        url: '/response', 
+        type: 'POST',
+        dataType: 'json',
+        contentType: 'application/json',
+        data: JSON.stringify({replic: replic}),
+        success: function (result) {
+          $('#response-text').val(result.replic);
+        }
+      });
+    }
     
     $(function() {
       $('#code-btn').click(function(e) {
@@ -80,8 +174,29 @@
         login(code);
       });
       $('#save-btn').click(function(e) {
-        console.log('poshel naxuy')
+        const scenario = tinymce.activeEditor.getContent();
+        saveScenario(scenario);
       });
+      $('#restore-btn').click(function(e) {
+        restoreScenario();
+      });
+      $('#clear-btn-continue').click(function(e) {
+        $('#continue-text-input').val('');
+        $('#continue-text').val('');
+      })
+      $('#clear-btn-response').click(function(e) {
+        $('#response-text-input').val('');
+        $('#response-text').val('');
+      })
+
+      $('#run-btn-continue').click(function(e) {
+        const replic = $('#continue-text-input').val();
+        runContinue(replic);
+      })
+      $('#run-btn-response').click(function(e) {
+        const replic = $('#response-text-input').val();
+        runResponse(replic);
+      })
     });
   </script>
 {% endblock %}
