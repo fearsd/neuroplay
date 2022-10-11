@@ -2,12 +2,37 @@ from flask import Flask, request, jsonify, render_template
 from flask_sqlalchemy import SQLAlchemy
 from flask_bootstrap import Bootstrap
 from werkzeug.exceptions import NotFound
+from finetune.finetune import fineclass
 
 app = Flask(__name__)
 db = SQLAlchemy()
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///project.db"
 bootstrap = Bootstrap(app)
 db.init_app(app)
+
+def filt_gpt(text):
+    if ('выход:' in text):
+        arr = text.split('выход:')
+        text = ' '.join(arr[1: ])
+    
+    while ('ютуб' in text):
+        text = text.replace('ютуб', '')
+        
+    alphabet = ['а', 'б', 'в', 'г', 'д', 'е', 'ё', 'ж', 'з', 'и', 'й', 'к', 'л', 'м', 
+                'н', 'о', 'п', 'р', 'с', 'т', 'у', 'ф', 'х', 'ц', 'ч', 'ш', 'щ', 'э',
+                'ю', 'я', 'А', 'Б', 'В', 'Г', 'Д', 'Е', 'Ё', 'Ж', 'З', 'И', 'Й', 'К', 
+                'Л', 'М', 'Н', 'О', 'П', 'Р', 'С', 'Т', 'У', 'Ф', 'Х', 'Ц', 'Ч', 'Ш',
+                'Щ', 'Э', 'Ю', 'Я']
+
+    while (text[0] not in alphabet):
+        if (len(text) == 1):
+            return 'Please restart the program'
+        text = text[1:]
+    
+    while ('--' in text):
+        text = text.replace('--', '—')
+    
+    return text
 
 class Saving(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -60,7 +85,12 @@ def replic_continue():
 def replic_response():
     response = request.get_json()
     if response['replic']:
-        return jsonify({'replic': response['replic']})
+        text = fineclass('вход:\n-{0}\nвыход: '.format(response['replic']))
+        print(text)
+        output_text = filt_gpt(text)
+        return jsonify({
+            'replic': output_text
+        })
 
 if __name__ == '__main__':
     app.run(host='127.0.0.1', port=5555, debug=True)

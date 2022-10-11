@@ -74,6 +74,7 @@ const runContinue = (replic) => {
 };
 
 const runResponse = (replic) => {
+  $('#run-btn-response').text('Загрузка...')
   $.ajax({
     url: "/response",
     type: "POST",
@@ -82,7 +83,11 @@ const runResponse = (replic) => {
     data: JSON.stringify({ replic: replic }),
     success: function (result) {
       $("#response-text").val(result.replic);
+      $('#run-btn-response').text('Запустить')
     },
+    error: function(result) {
+      console.log(result)
+    }
   });
 };
 

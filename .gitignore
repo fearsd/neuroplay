@@ -156,3 +156,4 @@ cython_debug/
 instance/
 *.db
 .DS_Store
+finetune/
