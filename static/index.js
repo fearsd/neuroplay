@@ -91,6 +91,22 @@ const runResponse = (replic) => {
   });
 };
 
+const getFile = html => {
+  $.ajax({
+    url: "/getfile",
+    type: "POST",
+    dataType: "json",
+    contentType: "application/json",
+    data: JSON.stringify({ html: html }),
+    success: function (result) {
+      window.open('http://localhost:5555/getfile', '_blank')
+    },
+    // error: function(result) {
+    //   console.log(result)
+    // }
+  });
+}
+
 $(function () {
   $("#code-btn").click(function (e) {
     const code = $("#code-input").val();
@@ -108,12 +124,8 @@ $(function () {
   });
   $("#download-btn").click(function (e) {
     tinymce.triggerSave();
-    let doc = new jsPDF();
-    doc.html(tinymce.activeEditor.getContent(), {
-        callback: function (doc) {
-          doc.save();
-        },
-    });
+    let html = tinymce.activeEditor.getContent();
+    getFile(html);
   });
 
   $("#clear-btn-continue").click(function (e) {
