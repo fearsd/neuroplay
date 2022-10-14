@@ -57,7 +57,7 @@ def hello_world():
 @app.route('/login', methods=['POST'])
 def login():
     response = request.get_json()
-    if response['code'] == 'ZaNashix228':
+    if response['code'] == 'театр2022':
         return jsonify({'success': True})
     return jsonify({'success': False})
 

@@ -92,6 +92,7 @@ const runResponse = (replic) => {
 };
 
 const getFile = html => {
+  const domain = "neuroplay.itatmisis.ru";
   $.ajax({
     url: "/getfile",
     type: "POST",
@@ -99,7 +100,7 @@ const getFile = html => {
     contentType: "application/json",
     data: JSON.stringify({ html: html }),
     success: function (result) {
-      window.open('http://localhost:5555/getfile', '_blank')
+      window.open(`http://${domain}/getfile`, '_blank')
     },
     // error: function(result) {
     //   console.log(result)
