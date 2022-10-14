@@ -101,8 +101,8 @@ def getfile():
         if req['html']:
             html_pattern = '<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"></head><body>{0}</body></html>'
             if platform.system() == 'Linux':
-                pdfkit.configuration(wkhtmltopdf='/usr/local/bin/wkhtmltopdf')
-            pdfkit.from_string(html_pattern.format(req['html']), 'uploads/file.pdf')
+                config = pdfkit.configuration(wkhtmltopdf='/usr/local/bin/wkhtmltopdf')
+            pdfkit.from_string(html_pattern.format(req['html']), 'uploads/file.pdf', configuration=config)
             return jsonify({'success': True})
     else:
         return send_from_directory('uploads', 'file.pdf', as_attachment=True)
