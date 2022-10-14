@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+{% block title %}This is an example page{% endblock %}
+
+{% block content %}
+  <div class="main_container">
+
+    <div class="left_block">
+
+      <div class="code_container">
+        <input class="form-control" type="text" placeholder="Ваш персональный код" id="code-input">
+        <button type="button" id="code-btn" class="btn btn-primary">
+          <i class="icon-btn" id="code-icon"></i>
+        </button>
+      </div>
+        <!-- Ввод кода доступа -->
+      
+    
+      <!-- Кнопки для взаимодействия с текстом -->
+      <div class="btn_container">
+        <button type="button" id="save-btn" class="btn btn-primary btn-text" disabled>
+          <i class="icon-btn" id="save-icon"></i>
+          Сохранить
+        </button>
+        <button type="button" id="download-btn" class="btn btn-primary btn-text" disabled>
+          <i class="icon-btn" id="download-icon"></i>
+          Загрузить
+        </button>
+        <button type="button" id="restore-btn" class="btn btn-primary btn-text" disabled>
+          <i class="icon-btn" id="restore-icon"></i>
+          Восстановить
+        </button>
+
+        <button type="button" id="theme-btn" class="btn btn-primary btn-text theme-btn">
+          <i class="icon-btn" id="theme-icon"></i>
+          Тема
+        </button>
+      
+      </div>
+      
+      <!-- Само поле ввода для текста -->
+      <textarea class="form-control" id="neuroplay-text" rows="20" placeholder="Писать текст здесь"></textarea>
+    
+    </div>
+
+    <div class="right_block">
+
+  <!-- Блок для продолжения реплики -->
+  <div class="input_container">
+    <h2>Продолжить реплику</h2>
+    <input class="form-control" type="text" placeholder="Входной текст" id="continue-text-input">
+    <textarea class="form-control" id="continue-text" rows="20" placeholder="Выходной текст"></textarea>
+    <div class="btn_container">
+      <button type="button" id="run-btn-continue" class="btn btn-primary btn-run">
+        <i class="icon-btn run-icon"></i>
+        Запустить
+      </button>
+      <button type="button" id="clear-btn-continue" class="btn btn-primary btn-clear">
+        <i class="icon-btn clear-icon"></i>
+        Очистить
+      </button>
+    </div>
+    
+  </div>
+
+  <!-- Блок для ответа на реплику -->
+  <div class="input_container">
+    <h2>Сгенерировать ответ на реплику</h2>
+    <input class="form-control" type="text" placeholder="Входной текст" id="response-text-input">
+    <textarea class="form-control" id="response-text" rows="20" placeholder="Выходной текст"></textarea>
+    <div class="btn_container">
+
+    <button type="button" id="run-btn-response" class="btn btn-primary btn-run">
+      <i class="icon-btn run-icon"></i>
+      Запустить
+    </button>
+    <button type="button" id="clear-btn-response" class="btn btn-primary btn-clear">
+      <i class="icon-btn clear-icon"></i>
+      Очистить
+    </button>
+    </div>
+  </div>
+
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+  {{ super() }}
+  <script src="{{url_for('static', filename='index.js')}}"></script>
+{% endblock %}
