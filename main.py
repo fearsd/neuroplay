@@ -5,6 +5,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_bootstrap import Bootstrap
 from werkzeug.exceptions import NotFound
 from finetune.finetune import fineclass
+from flask import session
 
 app = Flask(__name__)
 db = SQLAlchemy()
@@ -28,7 +29,7 @@ def filt_gpt(text):
 
     while (text[0] not in alphabet):
         if (len(text) == 1):
-            return 'Please restart the program'
+            return 'Пожалуйста попробуйте сызнова.'
         text = text[1:]
     
     while ('--' in text):
@@ -61,6 +62,8 @@ def login():
     if response['code'] == 'театр2022':
         return jsonify({'success': True})
     return jsonify({'success': False})
+
+
 
 @app.route('/scenario', methods=['GET', 'POST'])
 def scenario():
