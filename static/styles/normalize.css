@@ -21,8 +21,18 @@ html {
  */
 
 body {
-  margin: 0;
+    margin-top: -45px;
+   /*margin-left: -45px;
+    margin-right: -45px;*/
+    max-width: 100vw;
 }
+button{
+  font-size: 20px;
+}
+neuroplay-text_ifr{
+  cursor: text;
+}
+.btn{cursor: not-allowed;}
 
 /**
  * Render the `main` element consistently in IE.
@@ -30,6 +40,41 @@ body {
 
 main {
   display: block;
+}
+.btn-suc{
+  margin-left: 10px;
+  margin-top: 0px;
+  position: absolute;
+  font-size: 15px;
+  opacity: 0;
+  /*color: #5e5e5e;*/
+}
+.saved{
+  display: block;
+  /*opacity: 1;
+  transition: 0.5s;*/
+
+  animation: an 2s forwards; 
+
+}
+@keyframes an{
+  from{
+  opacity: 0;
+  transition: 0.5s;
+}
+to{
+  opacity: 1;
+}
+
+}
+@keyframes an{
+from{
+  opacity: 1;
+  transition: 0.5s;
+}
+to{
+  opacity: 0;
+}
 }
 
 /**

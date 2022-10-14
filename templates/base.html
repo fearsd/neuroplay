@@ -1,23 +1,29 @@
 <!doctype html>
-<html lang="en">
+<html lang="ru">
     <head>
         {% block head %}
         <!-- Required meta tags -->
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        
 
         {% block styles %}
             <!-- Bootstrap CSS -->
+
             {{ bootstrap.load_css() }}
+            <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/normalize.css') }}">
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/index.css') }}">
             
         {% endblock %}
 
         <title>Neuroplay</title>
         {% endblock %}
     </head>
-    <body>
+    <body >
         <!-- Your page content -->
-        {% block content %}{% endblock %}
+        {% block content %}
+
+        {% endblock %}
 
         {% block scripts %}
             <!-- Optional JavaScript -->
@@ -27,8 +33,8 @@
             <script src="{{url_for('static', filename='purify.min.js')}}"></script>
             <script src="{{url_for('static', filename='html2canvas.min.js')}}"></script>
             <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" integrity="sha512-qZvrmS2ekKPF2mSznTQsxqPgnpkI4DNTlrdUmTzrDgektczlKNRRhy5X5AAOnx5S09ydFYWWNSfcEqDTTHgtNA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
         {% endblock %}
-        <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/normalize.css') }}">
-        <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/index.css') }}">
+        
     </body>
 </html>
