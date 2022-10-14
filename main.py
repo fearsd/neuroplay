@@ -1,4 +1,6 @@
-from flask import Flask, request, jsonify, render_template
+import pdfkit
+import platform
+from flask import Flask, request, jsonify, render_template, send_from_directory
 from flask_sqlalchemy import SQLAlchemy
 from flask_bootstrap import Bootstrap
 from werkzeug.exceptions import NotFound
@@ -57,8 +59,7 @@ def hello_world():
 @app.route('/login', methods=['POST'])
 def login():
     response = request.get_json()
-    if response['code'] == 'huy':
-
+    if response['code'] == 'театр2022':
         return jsonify({'success': True})
     return jsonify({'success': False})
 
@@ -95,6 +96,20 @@ def replic_response():
         return jsonify({
             'replic': output_text
         })
+
+@app.route('/getfile', methods=['POST', 'GET'])
+def getfile():
+    if request.method == 'POST':
+        req = request.get_json()
+        if req['html']:
+            html_pattern = '<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"></head><body>{0}</body></html>'
+            if platform.system() == 'Linux':
+                config = pdfkit.configuration(wkhtmltopdf='/usr/local/bin/wkhtmltopdf')
+            pdfkit.from_string(html_pattern.format(req['html']), 'uploads/file.pdf', configuration=config)
+            return jsonify({'success': True})
+    else:
+        return send_from_directory('uploads', 'file.pdf', as_attachment=True)
+    
 
 if __name__ == '__main__':
     app.run(host='127.0.0.1', port=5555, debug=True)
