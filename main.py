@@ -1,4 +1,5 @@
 import pdfkit
+import platform
 from flask import Flask, request, jsonify, render_template, send_from_directory
 from flask_sqlalchemy import SQLAlchemy
 from flask_bootstrap import Bootstrap
@@ -99,6 +100,8 @@ def getfile():
         req = request.get_json()
         if req['html']:
             html_pattern = '<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"></head><body>{0}</body></html>'
+            if platform.system() == 'Linux':
+                pdfkit.configuration(wkhtmltopdf='/usr/local/bin/wkhtmltopdf')
             pdfkit.from_string(html_pattern.format(req['html']), 'uploads/file.pdf')
             return jsonify({'success': True})
     else:
