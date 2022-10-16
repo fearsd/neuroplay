@@ -27,7 +27,7 @@ def filt_gpt(text):
 
     while (text[0] not in alphabet):
         if (len(text) == 1):
-            return 'Пожалуйста попробуйте сызнова.'
+            return 'Что-то пошло не так. Пожалуйста попробуйте сызнова.'
         text = text[1:]
     
     while ('--' in text):
@@ -57,7 +57,7 @@ def hello_world():
 @app.route('/login', methods=['POST'])
 def login():
     response = request.get_json()
-    if response['code'] == 'huy':
+    if response['code'] == 'театр':
 
         return jsonify({'success': True})
     return jsonify({'success': False})
@@ -82,19 +82,27 @@ def scenario():
 def replic_continue():
     response = request.get_json()
     print(response)
+    #if response['replic']:
+    #    return jsonify({'replic': response['replic']})
     if response['replic']:
-        return jsonify({'replic': response['replic']})
+        text = fineclass('{0}'.format(response['replic']))
+        print(text)
+        output_text = filt_gpt(text)
+        return jsonify({
+            'replic': '\n'.join(text)
+        })
 
 @app.route('/response', methods=['POST'])
 def replic_response():
     response = request.get_json()
     if response['replic']:
-        text = fineclass('вход:\n-{0}\nвыход: '.format(response['replic']))
+        text = fineclass('-{0}\n-'.format(response['replic']))
         print(text)
         output_text = filt_gpt(text)
         return jsonify({
-            'replic': output_text
+            'replic': '\n'.join(text)
         })
+    
 
 if __name__ == '__main__':
     app.run(host='127.0.0.1', port=5555, debug=True)
