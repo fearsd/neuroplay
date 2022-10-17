@@ -156,14 +156,7 @@ cython_debug/
 instance/
 *.db
 .DS_Store
-<<<<<<< HEAD
 finetune/models_new/*
-
+finetune/models/*
 uploads/
 *.sock
-=======
-finetune/
-.fleet/
-uploads/
-*.sock
->>>>>>> 4fea5cd5cf6d7e43853420fd829bd6194689a8ef
