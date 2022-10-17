@@ -220,7 +220,6 @@ const runResponse = (replic) => {
 }
 };
 
-
 var form = document.querySelector("form");
 form.addEventListener("submit", function(event) {
   alert('2');
@@ -279,22 +278,6 @@ $(function () {
       
 }
 Export2Word(tinymce.activeEditor.getContent());
-    /*
-    tinymce.triggerSave();
-    window.jsPDF = window.jspdf.jsPDF;
-
-    b=tinymce.activeEditor.getContent();
-    alert(b);
-
-
-    let doc = new jsPDF();
-    doc.html("huy <p> pizda</p> и залупа слоника", {
-        callback: function (doc) {
-          doc.save();
-        },
-    });
-
-*/
   });
 
   $("#clear-btn-continue").click(function (e) {
