@@ -156,7 +156,5 @@ cython_debug/
 instance/
 *.db
 .DS_Store
-finetune/
-.fleet/
-uploads/
-*.sock
+finetune/models_new/*
+

@@ -148,6 +148,15 @@ const restoreScenario = () => {
 };
 
 const runContinue = (replic) => {
+  var data = new FormData(form);
+  var output = "";
+  for (const entry of data) {
+    output = entry[0] + "=" + entry[1] + "\r";
+  };
+  if (output.toString().includes('continue')){
+  //alert(output);
+
+$('#run-btn-continue').text('Загрузка...')
   $.ajax({
     url: "/continue",
     type: "POST",
@@ -156,12 +165,44 @@ const runContinue = (replic) => {
     data: JSON.stringify({ replic: replic }),
     success: function (result) {
       $("#continue-text").val(result.replic);
+      $('#run-btn-continue').text('Запустить')
     },
+    error: function(result) {
+      console.log(result)
+    }
   });
+}else{
+
+$('#run-btn-continue').text('Загрузка...')
+  $.ajax({
+    url: "/response",
+    type: "POST",
+    dataType: "json",
+    contentType: "application/json",
+    data: JSON.stringify({ replic: replic }),
+    success: function (result) {
+      $("#continue-text").val(result.replic);
+      $('#run-btn-continue').text('Запустить')
+    },
+    error: function(result) {
+      console.log(result)
+    }
+  });
+
+}
 };
 
 const runResponse = (replic) => {
-  $('#run-btn-response').text('Загрузка...')
+  var data = new FormData(form);
+  var output = "";
+  for (const entry of data) {
+    output = entry[0] + "=" + entry[1] + "\r";
+  };
+  if (output.toString().includes('response')){
+  alert(output);
+
+
+  $('#run-btn-continue').text('Загрузка...')
   $.ajax({
     url: "/response",
     type: "POST",
@@ -170,30 +211,28 @@ const runResponse = (replic) => {
     data: JSON.stringify({ replic: replic }),
     success: function (result) {
       $("#response-text").val(result.replic);
-      $('#run-btn-response').text('Запустить')
+      $('#run-btn-continue').text('Запустить')
     },
     error: function(result) {
       console.log(result)
     }
   });
+}
 };
 
-const getFile = html => {
-  const domain = "neuroplay.itatmisis.ru";
-  $.ajax({
-    url: "/getfile",
-    type: "POST",
-    dataType: "json",
-    contentType: "application/json",
-    data: JSON.stringify({ html: html }),
-    success: function (result) {
-      window.open(`http://${domain}/getfile`, '_blank')
-    },
-    // error: function(result) {
-    //   console.log(result)
-    // }
-  });
-}
+var form = document.querySelector("form");
+form.addEventListener("submit", function(event) {
+  alert('2');
+  var data = new FormData(form);
+  var output = "";
+  for (const entry of data) {
+    output = entry[0] + "=" + entry[1] + "\r";
+  };
+  alert(data);
+  Console.log(output);
+}, false);
+
+
 
 $(function () {
   $("#code-btn").click(function (e) {
@@ -307,3 +346,12 @@ let timerId = setTimeout(function tick() {
   timerId = setTimeout(tick, 2000);
 }, 2000);
 */
+
+
+function success() {
+   if(document.getElementById("continue-text-input").value==="") { 
+            document.getElementById('run-btn-continue').disabled = true; 
+        } else { 
+            document.getElementById('run-btn-continue').disabled = false;
+        }
+    }

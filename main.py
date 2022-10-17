@@ -5,13 +5,48 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_bootstrap import Bootstrap
 from werkzeug.exceptions import NotFound
 from finetune.finetune import fineclass
+from finetune.finetune import replyclass
+
 from flask import session
+import pandas as pd
 
 app = Flask(__name__)
 db = SQLAlchemy()
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///project.db"
 bootstrap = Bootstrap(app)
 db.init_app(app)
+
+
+def cont(arr, inp):
+    ser = pd.Series(arr)
+    ser = ser.str.strip()
+    ser = ser.str.replace('--', '—')
+    ser = (ser.index + 1).astype('string') + '. ' + ser
+    ans = []
+    for val in ser.values:
+        while(val[-1] not in ['.', '!', '?']):
+            val = val[:-1]
+        ans.append(val + '\n')
+    return ans
+
+
+def rep(arr, inp):
+    ser = pd.Series(arr)
+    ser = ser.str.strip()
+    ser = ser.str[5:]
+    ser = ser.str.strip()
+    ser = ser.str[len(inp):]
+    ser = ser.str.strip()
+    ser = ser.str[6:]
+    ser = ser.str.strip()
+    ser = ser.str.replace('--', '—')
+    ser = (ser.index + 1).astype('string') + '. ' + inp + '\n' + ser
+    ans = []
+    for val in ser.values:
+        while(val[-1] not in ['.', '!', '?']):
+            val = val[:-1]
+        ans.append(val + '\n')
+    return ans
 
 def filt_gpt(text):
     if ('выход:' in text):
@@ -29,7 +64,7 @@ def filt_gpt(text):
 
     while (text[0] not in alphabet):
         if (len(text) == 1):
-            return 'Пожалуйста попробуйте сызнова.'
+            return 'Что-то пошло не так. Пожалуйста попробуйте сызнова.'
         text = text[1:]
     
     while ('--' in text):
@@ -59,7 +94,10 @@ def hello_world():
 @app.route('/login', methods=['POST'])
 def login():
     response = request.get_json()
-    if response['code'] == 'театр2022':
+
+    if response['code'] == 'театр':
+
+
         return jsonify({'success': True})
     return jsonify({'success': False})
 
@@ -83,19 +121,27 @@ def scenario():
 def replic_continue():
     response = request.get_json()
     print(response)
+    #if response['replic']:
+    #    return jsonify({'replic': response['replic']})
     if response['replic']:
-        return jsonify({'replic': response['replic']})
+        text = fineclass('{0}'.format(response['replic']))
+        print(text)
+        output_text = cont(text, response['replic'])
+        return jsonify({
+            'replic': '\n'.join(output_text)
+        })
 
 @app.route('/response', methods=['POST'])
 def replic_response():
     response = request.get_json()
     if response['replic']:
-        text = fineclass('вход:\n-{0}\nвыход: '.format(response['replic']))
+        text = replyclass('вход:\n{0}выход:\n'.format(response['replic']))
         print(text)
-        output_text = filt_gpt(text)
+        output_text = rep(text, response['replic'])
         return jsonify({
-            'replic': output_text
+            'replic': '\n'.join(output_text)
         })
+    
 
 @app.route('/getfile', methods=['POST', 'GET'])
 def getfile():
