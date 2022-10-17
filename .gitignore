@@ -157,3 +157,6 @@ instance/
 *.db
 .DS_Store
 finetune/models_new/*
+
+uploads/
+*.sock
