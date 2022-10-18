@@ -157,6 +157,7 @@ const runContinue = (replic) => {
   //alert(output);
 
 $('#run-btn-continue').text('Загрузка...')
+$('<i class="icon-btn pause-icon"></i>').prependTo('#run-btn-continue');
   $.ajax({
     url: "/continue",
     type: "POST",
@@ -165,7 +166,9 @@ $('#run-btn-continue').text('Загрузка...')
     data: JSON.stringify({ replic: replic }),
     success: function (result) {
       $("#continue-text").val(result.replic);
-      $('#run-btn-continue').text('Запустить')
+      $('#run-btn-continue').text('Запустить');
+
+      $('<i class="icon-btn run-icon"></i>').prependTo('#run-btn-continue');
     },
     error: function(result) {
       console.log(result)
@@ -174,6 +177,7 @@ $('#run-btn-continue').text('Загрузка...')
 }else{
 
 $('#run-btn-continue').text('Загрузка...')
+$('<i class="icon-btn pause-icon"></i>').prependTo('#run-btn-continue');
   $.ajax({
     url: "/response",
     type: "POST",
@@ -182,7 +186,8 @@ $('#run-btn-continue').text('Загрузка...')
     data: JSON.stringify({ replic: replic }),
     success: function (result) {
       $("#continue-text").val(result.replic);
-      $('#run-btn-continue').text('Запустить')
+      $('#run-btn-continue').text('Запустить');
+      $('<i class="icon-btn run-icon"></i>').prependTo('#run-btn-continue');
     },
     error: function(result) {
       console.log(result)
@@ -235,6 +240,23 @@ form.addEventListener("submit", function(event) {
 
 
 
+const getFile = html => {
+  const domain = "neuroplay.itatmisis.ru";
+  $.ajax({
+    url: "/getfile",
+    type: "POST",
+    dataType: "json",
+    contentType: "application/json",
+    data: JSON.stringify({ html: html }),
+    success: function (result) {
+      window.open(`http://${domain}/getfile`, '_blank')
+    },
+    // error: function(result) {
+    //   console.log(result)
+    // }
+  });
+}
+
 $(function () {
   $("#code-btn").click(function (e) {
     const code = $("#code-input").val();
@@ -279,22 +301,6 @@ $(function () {
       
 }
 Export2Word(tinymce.activeEditor.getContent());
-    /*
-    tinymce.triggerSave();
-    window.jsPDF = window.jspdf.jsPDF;
-
-    b=tinymce.activeEditor.getContent();
-    alert(b);
-
-
-    let doc = new jsPDF();
-    doc.html("huy <p> pizda</p> и залупа слоника", {
-        callback: function (doc) {
-          doc.save();
-        },
-    });
-
-*/
   });
 
   $("#clear-btn-continue").click(function (e) {
