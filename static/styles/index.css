@@ -27,6 +27,11 @@
     width: 18px;
     background-image : url(../icon_run.svg);
 }
+.pause-icon {
+    height: 18px;
+    width: 18px;
+    background-image : url(../icon_pause2.svg);
+}
 
 .clear-icon {
     height: 18px;
@@ -313,3 +318,4 @@ label{
     background-image : url(../icon_sun.svg);
     background-size:100% 100%;
 }
+

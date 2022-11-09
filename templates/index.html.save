@@ -1,0 +1,121 @@
+{% extends "base.html" %}
+{% block title %}This is an example page{% endblock %}
+
+{% block content %}
+  <div class="main_container">
+
+    <div class="left_block">
+
+      <div class="code_container">
+
+        
+        <input name='password' class="code form-control huy" type="text" placeholder="Ваш персональный код" id="code-input">
+        <button type="button" id="code-btn" class="btn btn-primary btn-check">
+          <i class="icon-btn" id="code-icon"></i>
+        </button>
+      </div>
+        <!-- Ввод кода доступа -->
+      
+    
+      <!-- Кнопки для взаимодействия с текстом -->
+      <div class="btn_container">
+
+        <div>
+        <button  title='Сохранить написанное в базу данных' type="button" id="save-btn" class="btn btn-primary btn-text" disabled >
+          <i class="icon-btn" id="save-icon"></i>
+          Сохранить
+        </button>
+        <div class="btn-suc">Сохранено!</div>
+      </div>
+
+
+        <button title='Скачать файл на компьютер' type="button" id="download-btn" class="btn btn-primary btn-text" disabled>
+          <i class="icon-btn" id="download-icon"></i>
+          Скачать
+        </button>
+        <button title='Восстановить последнюю сохраненную версию' type="button" id="restore-btn" class="btn btn-primary btn-text" disabled>
+          <i class="icon-btn" id="restore-icon"></i>
+          Восстановить
+        </button>
+
+        <button title='Сменить тему' type="button" id="theme-btn" class="btn btn-primary btn-text theme-btn">
+          <i class="icon-btn" id="theme-icon"></i>
+          Тема
+        </button>
+      
+      </div>
+      
+      <!-- Само поле ввода для текста -->
+      <textarea class="form-control" id="neuroplay-text" rows="20" placeholder="Набирайте текст здесь"></textarea>
+    
+    </div>
+
+    <div class="right_block">
+
+  <!-- Блок для продолжения реплики -->
+  <div class="input_container">
+    <h4>Раздел генерации</h4>
+    <input class="form-control huy" type="text" placeholder="Входной текст" id="continue-text-input"  onkeyup="success()"  title='Это поле обязательно для заполнения!'>
+    <textarea class="form-control huy" id="continue-text" rows="20" placeholder="Выходной текст"></textarea>
+    <div class="btn_container1">
+<form>
+      <div class="form-group form-style">
+              <div class="custom-control custom-radio">
+                <input value='continue' type="radio" id="customRadio1" name="customRadio" class="custom-control-input" checked="">
+                <label class="custom-control-label" for="customRadio1">Продолжить реплику</label>
+              </div>
+              <div class="custom-control custom-radio">
+                <input value='response' type="radio" id="customRadio2" name="customRadio" class="custom-control-input">
+                <label class="custom-control-label" for="customRadio2">Сгенерировать ответ на реплику</label>
+              </div>
+              
+            </div>
+
+<div class='container_new'>
+      <button type="button" id="run-btn-continue" class="btn btn-primary btn-run1"  disabled>
+        <i class="icon-btn run-icon"></i>
+        Запустить
+      </button>
+      <button type="button" id="clear-btn-continue" class="btn btn-primary btn-clear1">
+        <i class="icon-btn clear-icon"></i>
+        Очистить
+      </button>
+    
+
+
+    </div>
+  </form>
+    </div>
+  </div>
+
+  <!-- Блок для ответа на реплику 
+  <div class="input_container">
+    <h4>Сгенерировать ответ на реплику</h4>
+    <input class="form-control huy" type="text" placeholder="Входной текст" id="response-text-input">
+    <textarea class="form-control huy" id="response-text" rows="20" placeholder="Выходной текст"></textarea>
+    <div class="btn_container">
+    <button type="button" id="run-btn-response" class="btn btn-primary btn-run">
+      <i class="icon-btn run-icon"></i>
+      Запустить
+    </button>
+    <button type="button" id="clear-btn-response" class="btn btn-primary btn-clear">
+      <i class="icon-btn clear-icon"></i>
+      Очистить
+    </button>
+    </div>
+  </div>
+-->
+  </div>
+</div>
+
+<div class='fuck-smartphone'>
+  <h1>Кажется, вы зашли на сервис с телефона. Рекомендуем вам вернуться сюда позднее с компьютера или ноутбука.</h1>
+  <button type="button" class="btn btn-secondary btn-lg">Вернуться назад</button>
+</div>
+{% endblock %}
+
+{% block scripts %}
+  {{ super() }}
+  
+  <script src="{{url_for('static', filename='index.js')}}"></script>
+  <script src='static\cookie\src\jquery_cookie.js'></script>

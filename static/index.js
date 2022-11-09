@@ -157,6 +157,7 @@ const runContinue = (replic) => {
   //alert(output);
 
 $('#run-btn-continue').text('Загрузка...')
+$('<i class="icon-btn pause-icon"></i>').prependTo('#run-btn-continue');
   $.ajax({
     url: "/continue",
     type: "POST",
@@ -165,7 +166,9 @@ $('#run-btn-continue').text('Загрузка...')
     data: JSON.stringify({ replic: replic }),
     success: function (result) {
       $("#continue-text").val(result.replic);
-      $('#run-btn-continue').text('Запустить')
+      $('#run-btn-continue').text('Запустить');
+
+      $('<i class="icon-btn run-icon"></i>').prependTo('#run-btn-continue');
     },
     error: function(result) {
       console.log(result)
@@ -174,6 +177,7 @@ $('#run-btn-continue').text('Загрузка...')
 }else{
 
 $('#run-btn-continue').text('Загрузка...')
+$('<i class="icon-btn pause-icon"></i>').prependTo('#run-btn-continue');
   $.ajax({
     url: "/response",
     type: "POST",
@@ -182,7 +186,8 @@ $('#run-btn-continue').text('Загрузка...')
     data: JSON.stringify({ replic: replic }),
     success: function (result) {
       $("#continue-text").val(result.replic);
-      $('#run-btn-continue').text('Запустить')
+      $('#run-btn-continue').text('Запустить');
+      $('<i class="icon-btn run-icon"></i>').prependTo('#run-btn-continue');
     },
     error: function(result) {
       console.log(result)
@@ -220,6 +225,7 @@ const runResponse = (replic) => {
 }
 };
 
+
 var form = document.querySelector("form");
 form.addEventListener("submit", function(event) {
   alert('2');
@@ -233,6 +239,23 @@ form.addEventListener("submit", function(event) {
 }, false);
 
 
+
+const getFile = html => {
+  const domain = "neuroplay.itatmisis.ru";
+  $.ajax({
+    url: "/getfile",
+    type: "POST",
+    dataType: "json",
+    contentType: "application/json",
+    data: JSON.stringify({ html: html }),
+    success: function (result) {
+      window.open(`http://${domain}/getfile`, '_blank')
+    },
+    // error: function(result) {
+    //   console.log(result)
+    // }
+  });
+}
 
 $(function () {
   $("#code-btn").click(function (e) {
@@ -301,9 +324,11 @@ Export2Word(tinymce.activeEditor.getContent());
 
 
 /*
+
 function setCookie(name, value, options) {
       options = options || {};
       var expires = options.expires;
+
       if (typeof expires == "number" && expires) {
           var d = new Date();
           d.setTime(d.getTime() + expires * 1000);
@@ -312,8 +337,11 @@ function setCookie(name, value, options) {
       if (expires && expires.toUTCString) {
           options.expires = expires.toUTCString();
       }
+
       value = encodeURIComponent(value);
+
       var updatedCookie = name + "=" + value;
+
       for (var propName in options) {
           updatedCookie += "; " + propName;
           var propValue = options[propName];
@@ -321,17 +349,23 @@ function setCookie(name, value, options) {
               updatedCookie += "=" + propValue;
           }
        }
+
       document.cookie = updatedCookie;
 }
 var password = document.getElementById('password');
 var button = document.getElementsByClass('btn-check')[0];
+
 button.addEventListener('click', setCookie('nick_name', password.value));
 */
 /*
+
 let timerId = setTimeout(function tick() {
+
   tinymce.triggerSave();
   $.cookie('save',tinymce.activeEditor.getContent());
   alert($.cookie('save'));
+
+
   timerId = setTimeout(tick, 2000);
 }, 2000);
 */
