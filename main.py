@@ -4,8 +4,8 @@ from flask import Flask, request, jsonify, render_template, send_from_directory
 from flask_sqlalchemy import SQLAlchemy
 from flask_bootstrap import Bootstrap
 from werkzeug.exceptions import NotFound
-from finetune.temp import fineclass
-from finetune.temp import replyclass
+from finetune.finetune import fineclass
+from finetune.finetune import replyclass
 
 from flask import session
 import pandas as pd

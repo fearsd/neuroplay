@@ -184,7 +184,7 @@ $('<i class="icon-btn pause-icon"></i>').prependTo('#run-btn-continue');
     type: "POST",
     dataType: "json",
     contentType: "application/json",
-    data: JSON.stringify({ replic: replic }),
+    data: JSON.stringify({ replic: replic, size: size }),
     success: function (result) {
       $("#continue-text").val(result.replic);
       $('#run-btn-continue').text('Запустить');
@@ -198,14 +198,14 @@ $('<i class="icon-btn pause-icon"></i>').prependTo('#run-btn-continue');
 }
 };
 
-const runResponse = (replic) => {
+const runResponse = (replic, size) => {
   var data = new FormData(form);
   var output = "";
   for (const entry of data) {
     output = entry[0] + "=" + entry[1] + "\r";
   };
   if (output.toString().includes('response')){
-  alert(output);
+  //alert(output);
 
 
   $('#run-btn-continue').text('Загрузка...')
@@ -214,7 +214,7 @@ const runResponse = (replic) => {
     type: "POST",
     dataType: "json",
     contentType: "application/json",
-    data: JSON.stringify({ replic: replic }),
+    data: JSON.stringify({ replic: replic, size: size }),
     success: function (result) {
       $("#response-text").val(result.replic);
       $('#run-btn-continue').text('Запустить')
@@ -229,13 +229,13 @@ const runResponse = (replic) => {
 
 var form = document.querySelector("form");
 form.addEventListener("submit", function(event) {
-  alert('2');
+  //alert('2');
   var data = new FormData(form);
   var output = "";
   for (const entry of data) {
     output = entry[0] + "=" + entry[1] + "\r";
   };
-  alert(data);
+  //alert(data);
   Console.log(output);
 }, false);
 
@@ -316,7 +316,7 @@ Export2Word(tinymce.activeEditor.getContent());
   $("#run-btn-continue").click(function (e) {
     const replic = $("#continue-text-input").val();
     const size = $("#rangeinput1").val();
-    alert(size);
+    //alert(size);
     runContinue(replic, size);
   });
   $("#run-btn-response").click(function (e) {
