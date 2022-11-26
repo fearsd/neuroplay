@@ -147,12 +147,13 @@ const restoreScenario = () => {
   });
 };
 
-const runContinue = (replic) => {
+const runContinue = (replic, size) => {
   var data = new FormData(form);
   var output = "";
   for (const entry of data) {
     output = entry[0] + "=" + entry[1] + "\r";
   };
+  //alert(output);
   if (output.toString().includes('continue')){
   //alert(output);
 
@@ -163,7 +164,7 @@ $('<i class="icon-btn pause-icon"></i>').prependTo('#run-btn-continue');
     type: "POST",
     dataType: "json",
     contentType: "application/json",
-    data: JSON.stringify({ replic: replic }),
+    data: JSON.stringify({ replic: replic, size: size }),
     success: function (result) {
       $("#continue-text").val(result.replic);
       $('#run-btn-continue').text('Запустить');
@@ -314,11 +315,14 @@ Export2Word(tinymce.activeEditor.getContent());
 
   $("#run-btn-continue").click(function (e) {
     const replic = $("#continue-text-input").val();
-    runContinue(replic);
+    const size = $("#rangeinput1").val();
+    alert(size);
+    runContinue(replic, size);
   });
   $("#run-btn-response").click(function (e) {
     const replic = $("#response-text-input").val();
-    runResponse(replic);
+    const size = $("#rangeinput1").val();
+    runResponse(replic, size);
   });
 });
 

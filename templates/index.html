@@ -56,8 +56,23 @@
   <div class="input_container">
     <h4>Раздел генерации</h4>
     <input class="form-control huy" type="text" placeholder="Входной текст" id="continue-text-input"  onkeyup="success()"  title='Это поле обязательно для заполнения!'>
-    <textarea class="form-control huy" id="continue-text" rows="20" placeholder="Выходной текст"></textarea>
+    <textarea class="form-control huy" id="continue-text" rows="17" placeholder="Выходной текст"></textarea>
     <div class="btn_container1">
+ <!--
+<form title='ДЛИНА ПОСЛЕДОВАТЕЛЬНОСТИ ЕБАТЬ КОПАТЬ БЛЯТЬ!'> -->
+<div class="input-group ">
+<div class="input-group-prepend">
+<span class="input-group-text" >Длина последовательности</span>
+</div>
+<input type="text" class="form-control input_white" name="input_text1" id="input_text1" max="300" value="80" onchange="rangeinput1.value = input_text1.value" disabled>
+<input type="range" oninput="input_text1.value = rangeinput1.value" class="form-control-range slider" type="range" min="10" max="300" value="80" id="rangeinput1" step="10" onchange="input_text1.value = rangeinput1.value"></div>
+ <!--
+</form>
+-->
+
+
+
+
 <form>
       <div class="form-group form-style">
               <div class="custom-control custom-radio">
@@ -109,9 +124,9 @@
   </div>
 </div>
 
-<div class='fuck-smartphone'>
-  <h1>Кажется, вы зашли на сервис с телефона. Рекомендуем вам вернуться сюда позднее с компьютера или ноутбука.</h1>
-  <button type="button" class="btn btn-secondary btn-lg">Вернуться назад</button>
+<div class="fuck-smartphone">
+  <h1>Кажется, вы зашли на сервис с телефона. Для использования сервиса рекомендуем использовать компьютер :(</h1>
+  <button onclick="location.href='http://go.itatmisis.ru/theatre'" type="button" class="btn btn-secondary btn-lg">Вернуться назад</button>
 </div>
 {% endblock %}
 

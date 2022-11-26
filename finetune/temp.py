@@ -18,13 +18,19 @@ def fineclass(text):
     '''
     output="опупдуопдукодпод. укп куцкп. укп укп. укп кпф. куркур /*w "
     #output=tokenizer.batch_decode(out, skip_special_tokens=True)
+    import time
+    time.sleep(1)
 
     return filtered(output, text)
 
+def replyclass(text):
+    return text
 
 def filtered(output, text):
     
     return '.'.join(output.split('.')[:-1])
+'''
 import os      
 print(fineclass('huy'))
 os.system('pause')
+'''

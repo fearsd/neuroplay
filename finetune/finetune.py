@@ -21,7 +21,7 @@ model_name_reply = "RichelieuGVG/reply_model"
 rep_tok = GPT2Tokenizer.from_pretrained(model_name_reply)
 rep_model = GPT2LMHeadModel.from_pretrained(model_name_reply).cpu()
 
-def fineclass(text):
+def fineclass(text, size):
     
     import numpy as np
     import torch
@@ -37,8 +37,9 @@ def fineclass(text):
     print(input_ids)
 
     out = model.generate(input_ids,
-        max_new_tokens=80,
-        min_length=50,
+        #max_new_tokens=80,
+        max_length=size,
+        min_length=size-20,
         pad_token_id=225,
         eos_token_id=203,
         repetition_penalty=1.3,
@@ -82,7 +83,7 @@ def fineclass(text):
     '''
     return output
 
-def replyclass(text):
+def replyclass(text, size):
     import torch
     import numpy as np
     
@@ -91,8 +92,10 @@ def replyclass(text):
     inpt = rep_tok.encode(text, return_tensors="pt")
 
     out = rep_model.generate(inpt.cpu(),
-                         max_length=100,
+                        #max_length=100,
                         # min_length=100,
+                        max_length=size,
+                        min_length=size-20,
                          repetition_penalty=5.0,
                          do_sample=True,
                          top_k=5,

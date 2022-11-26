@@ -1,9 +1,11 @@
-from flask import Flask, request, jsonify, render_template
+import pdfkit
+import platform
+from flask import Flask, request, jsonify, render_template, send_from_directory
 from flask_sqlalchemy import SQLAlchemy
 from flask_bootstrap import Bootstrap
 from werkzeug.exceptions import NotFound
-from finetune.finetune import fineclass
-from finetune.finetune import replyclass
+from finetune.temp import fineclass
+from finetune.temp import replyclass
 
 from flask import session
 import pandas as pd
@@ -120,7 +122,7 @@ def replic_continue():
     #if response['replic']:
     #    return jsonify({'replic': response['replic']})
     if response['replic']:
-        text = fineclass('{0}'.format(response['replic']))
+        text = fineclass('{0}'.format(response['replic']), response['size'])
         print(text)
         output_text = cont(text, response['replic'])
         return jsonify({
@@ -131,12 +133,26 @@ def replic_continue():
 def replic_response():
     response = request.get_json()
     if response['replic']:
-        text = replyclass('вход:\n{0}выход:\n'.format(response['replic']))
+        text = replyclass('вход: {0}\nвыход:\n'.format(response['replic']), response['size'])
         print(text)
         output_text = rep(text, response['replic'])
         return jsonify({
             'replic': '\n'.join(output_text)
         })
+    
+
+@app.route('/getfile', methods=['POST', 'GET'])
+def getfile():
+    if request.method == 'POST':
+        req = request.get_json()
+        if req['html']:
+            html_pattern = '<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"></head><body>{0}</body></html>'
+            if platform.system() == 'Linux':
+                config = pdfkit.configuration(wkhtmltopdf='/usr/local/bin/wkhtmltopdf')
+            pdfkit.from_string(html_pattern.format(req['html']), 'uploads/file.pdf', configuration=config)
+            return jsonify({'success': True})
+    else:
+        return send_from_directory('uploads', 'file.pdf', as_attachment=True)
     
 
 if __name__ == '__main__':
