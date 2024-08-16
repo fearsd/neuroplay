@@ -1,0 +1,13 @@
+[Unit]
+Description=Neuroplay backend
+After=network.target
+
+[Service]
+User=fearsd
+Group=www-data
+WorkingDirectory=/home/fearsd/neuroplay
+Environment="PATH=/home/fearsd/anaconda3/envs/venv/bin"
+ExecStart=/home/fearsd/anaconda3/envs/venv/bin/gunicorn --workers 1 --bind 0.0.0.0:5555 --timeout 300 wsgi:app
+
+[Install]
+WantedBy=multi-user.target
